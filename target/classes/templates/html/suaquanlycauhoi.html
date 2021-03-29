@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Quiz Online</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/texteditor/richtext.min.css}" />
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/texteditor/jquery.richtext.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div id="mess-panel" class="alert alert-danger alert-dismissible">
+		<div>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<p id="mess"></p>
+		</div>
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+		<a class="navbar-brand"
+			style="font-family: 'Courier New', Courier, monospace; color: white; font-weight: bold;">Quiz
+			Online</a>
+		<button class="navbar-toggler" data-target="#my-nav"
+			data-toggle="collapse" aria-controls="my-nav" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div id="my-nav" class="collapse navbar-collapse">
+			<ul class="navbar-nav ml-4 jus mr-auto">
+				<li class="nav-item mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/exam}"><i class="fas fa-users"></i>
+						Quản lý đề thi </a></li>
+				<li class="nav-item active mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/question}"><i
+						class="fas fa-pencil-alt"></i> Quản lý câu hỏi </a></li>
+				<li style="cursor: pointer;" class="nav-item dropdown mr-3 "><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown"> <i
+						class="fas fa-pencil-alt"></i> Tham giathi
+				</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" th:href="@{http://localhost:8080/test}">Tham
+							gia thi thử</a> 
+						<a class="dropdown-item" th:href="@{http://localhost:8080/testReal}">Tham gia kiểm
+						tra</a>
+					</div></li>
+				<li class="nav-item mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/history}"><i
+						class="fas fa-history"></i> Xem lịch sử thi </a></li>
+			</ul>
+		</div>
+		<div class="float-right dropdown">
+			<button class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+				<img
+					th:src="@{'http://localhost:8080/getimage/' + ${session.account.avtPath}}"
+					style="height: 30xp; width: 30px; border-radius: 50%;" /> <span
+					th:text="${session.account.fullName}"></span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" th:href="@{http://localhost:8080/personal}"><i
+					class="fas fa-user"> Thông tin cá nhân</i></a> <a class="dropdown-item"
+					th:href="@{http://localhost:8080/}"><i
+					class="fas fa-sign-out-alt"> Đăng xuất</i></a>
+			</div>
+		</div>
+	</nav>
+	<div class="container " style="margin: 30px auto; height: auto;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="createOrUpdateAccount">Sửa câu hỏi</h5>
+			</div>
+			<form action="" th:action="@{http://localhost:8080/question/save}" onsubmit="return validate()"
+				th:object="${questionNew}" method="post">
+				<div class="modal-body">
+					<div class="row m-2" style="display: none;">
+						<div class="col-12 col-md-3">
+							<label for="questionId">Question id</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="questionId"
+								th:field="*{questionId}" placeholder="" type="text"
+								readonly="readonly" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="questionCode">Mã câu hỏi</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="questionCode"
+								th:field="*{questionCode}" placeholder="" type="text"
+								readonly="readonly" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="subject">Chọn môn <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<select id="subject" th:field="*{subjectId}"
+								class="form-control col-6" name="subject">
+								<option value="">Chọn môn</option>
+								<option th:each="subject : ${listSubject}"
+									th:value="${subject.subjectId}"
+									th:text="${subject.subjectName}"></option>
+							</select>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="quesion">Câu hỏi <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<textarea class="form-control" th:field="*{question}"></textarea>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="answer">Đáp án <span class="red">(*)</span></label>
+						</div>
+						.
+						<div class="col-12 col-md-8">
+							<div class="form-check-">
+								<div class="mb-4">
+									<input class="form-check-input" type="radio"
+										th:value="${questionNew.answer_1}"
+										th:field="*{answer_correct}"> <label
+										class="form-check-label"> <input type="text"
+										th:field="*{answer_1}" />
+									</label>
+								</div>
+								<div class="mb-4">
+									<input class="form-check-input" type="radio"
+										th:value="${questionNew.answer_2}"
+										th:field="*{answer_correct}"> <label
+										class="form-check-label"> <input type="text"
+										th:field="*{answer_2}" />
+									</label>
+								</div>
+								<div class="mb-4">
+									<input class="form-check-input" type="radio"
+										th:value="${questionNew.answer_3}"
+										th:field="*{answer_correct}"> <label
+										class="form-check-label"> <input type="text"
+										th:field="*{answer_3}" />
+									</label>
+								</div>
+								<div>
+									<input class="form-check-input" type="radio"
+										th:value="${questionNew.answer_4}"
+										th:field="*{answer_correct}"> <label
+										class="form-check-label"> <input type="text"
+										th:field="*{answer_4}" />
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="level">Độ khó <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<select th:field="*{level}" class="form-control col-6">
+								<option value="">Độ khó</option>
+								<option th:value="0">Dễ</option>
+								<option th:value="1">Trung bình</option>
+								<option th:value="2">Khó</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a th:href="@{http://localhost:8080/question}"><button
+							type="button" class="btn btn-secondary" data-dismiss="modal"><i class="far fa-times-circle"></i> Hủy</button></a>
+					<button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Lưu</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="jumbotron text-center p-1" style="margin-bottom: 0;">
+		<p class="m-1">&copy; Nguyễn Minh Hiếu - 2021</p>
+	</div>
+	<script th:src="@{/js/quanlycauhoi.js}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#question').richText();
+		});
+	</script>
+</body>
+
+</html>

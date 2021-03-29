@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Quiz Online</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+	crossorigin="anonymous">
+
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<div id="mess-panel" class="alert alert-danger alert-dismissible">
+		<div>
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<p id="mess"></p>
+		</div>
+	</div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+		<a class="navbar-brand"
+			style="font-family: 'Courier New', Courier, monospace; color: white; font-weight: bold;">Quiz
+			Online</a>
+		<button class="navbar-toggler" data-target="#my-nav"
+			data-toggle="collapse" aria-controls="my-nav" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div id="my-nav" class="collapse navbar-collapse">
+			<ul class="navbar-nav ml-4 jus mr-auto">
+				<li class="nav-item active mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/account}"><i
+						class="fas fa-users"></i> Quản lý tài khoản </a></li>
+				<li style="cursor: pointer;" class="nav-item dropdown mr-3 "><a
+					class="nav-link dropdown-toggle" data-toggle="dropdown"> <i
+						class="fas fa-pencil-alt"></i> Tham giathi
+				</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" th:href="@{http://localhost:8080/test}">Tham
+							gia thi thử</a> 
+						<a class="dropdown-item" th:href="@{http://localhost:8080/testReal}">Tham gia kiểm
+						tra</a>
+					</div></li>
+				<li class="nav-item mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/history}"><i
+						class="fas fa-history"></i> Xem lịch sử thi </a></li>
+			</ul>
+		</div>
+		<div class="float-right dropdown">
+			<button class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+				<img
+					th:src="@{'http://localhost:8080/getimage/' + ${session.account.avtPath}}"
+					style="height: 30xp; width: 30px; border-radius: 50%;" /> <span
+					th:text="${session.account.fullName}"></span>
+			</button>
+			<div class="dropdown-menu">
+				<a class="dropdown-item" th:href="@{http://localhost:8080/personal}"><i
+					class="fas fa-user"> Thông tin cá nhân</i></a> <a class="dropdown-item"
+					th:href="@{http://localhost:8080}"><i
+					class="fas fa-sign-out-alt"> Đăng xuất</i></a>
+			</div>
+		</div>
+	</nav>
+	<div class="container " style="margin: 30px auto; height: auto;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="createOrUpdateAccount">Sửa tài
+					khoản</h5>
+			</div>
+			<form action="" th:action="@{http://localhost:8080/account/save}" onsubmit="return validate()"
+				th:object="${account}" method="post">
+				<div class="modal-body">
+					<div class="row m-2" style="display: none;">
+						<div class="col-12 col-md-3">
+							<label for="accountId">Account id</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="accountId"
+								th:field="*{accountId}" placeholder="" type="text"
+								readonly="readonly" name="">
+						</div>
+					</div>
+					<div class="row m-2" style="display: none;">
+						<div class="col-12 col-md-3">
+							<label for="avtPath">avatar</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="avtPath" th:field="*{avtPath}"
+								placeholder="" type="text" readonly="readonly" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="accountCode">Mã tài khoản</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="accountCode"
+								th:field="*{accountCode}" placeholder="" type="text"
+								readonly="readonly" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="fullName">Họ và tên <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="fullName" th:field="*{fullName}"
+								placeholder="Nhập họ và tên" type="text" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="gender">Giới tính</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<div class="form-check-inline">
+								<div class="mr-4">
+									<input class="form-check-input" type="radio" name="gender"
+										id="male" th:value="0" th:field="*{gender}"> <label
+										class="form-check-label" for="male"> Nam </label>
+								</div>
+								<div>
+									<input class="form-check-input" type="radio" name="gender"
+										id="female" th:value="1" th:field="*{gender}"> <label
+										class="form-check-label" for="female"> Nữ </label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="birthOfDate">Ngày sinh</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" id="birthOfDate"
+								placeholder="Nhập ngày sinh" th:field="*{birthOfDate}"
+								type="date" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="phoneNumber">Số điện thoại</label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" th:field="*{phoneNumber}"
+								id="phoneNumber" placeholder="Nhập số điện thoại" type="text"
+								name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="email">Email <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" th:field="*{email}" id="email"
+								placeholder="Nhập email" type="text" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="password">Mật khẩu <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<input class="form-control" th:field="*{password}" id="password"
+								placeholder="Nhập mật khẩu" type="text" name="">
+						</div>
+					</div>
+					<div class="row m-2">
+						<div class="col-12 col-md-3">
+							<label for="role">Quyền <span class="red">(*)</span></label>
+						</div>
+						<div class="col-12 col-md-8">
+							<div class="form-check-inline">
+								<div class="mr-4">
+									<input class="form-check-input" type="radio" name="role"
+										id="admin" th:field="*{role}" th:value="0"> <label
+										class="form-check-label" for="admin"> Admin </label>
+								</div>
+								<div class="mr-4">
+									<input class="form-check-input" type="radio" name="role"
+										id="managerExam" th:field="*{role}" th:value="1"> <label
+										class="form-check-label" for="managerExam"> Quản lý đề
+										thi </label>
+								</div>
+								<div>
+									<input class="form-check-input" type="radio" name="role"
+										id="student" th:field="*{role}" th:value="2"> <label
+										class="form-check-label" for="student"> Người thi </label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a th:href="@{http://localhost:8080/account}"><button
+							type="button" class="btn btn-secondary"><i class="far fa-times-circle"></i> Hủy</button></a>
+					<button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Lưu</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="jumbotron text-center p-1" style="margin-bottom: 0;">
+		<p class="m-1">&copy; Nguyễn Minh Hiếu - 2021</p>
+	</div>
+	<script th:src="@{/js/quanlytaikhoan.js}"></script>
+</body>
+
+</html>

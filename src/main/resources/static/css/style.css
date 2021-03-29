@@ -1,0 +1,59 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+
+.red{
+    color: red;
+}
+
+body {
+	background-color: lightgray;
+}
+
+.vertical-center {
+	height: 100vh;
+	display: flex;
+	align-items: center;
+}
+
+#mess-panel {
+	position: fixed;
+	width: auto;
+	top: 15px;
+	right: 15px;
+	z-index: 100000;
+	visibility: hidden;
+}
+
+.text-align-right {
+	text-align: right;
+}
+
+.bg-lightgray {
+	background-color: lightgray;
+}
+
+.full-screen {
+	height: 100vh;
+}
+
+.form-inline>input, .form-inline>button {
+	border: 1px solid black;
+	border-radius: 2px;
+}
+
+.swal-text {
+	font-size: 20px;
+	text-align: center;
+}
+
+.swal-footer {
+	text-align: center;
+}
+
+.swal-button {
+	background-color: dodgerblue;
+}
