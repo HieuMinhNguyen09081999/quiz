@@ -90,7 +90,7 @@ public class ExamController {
 		if(examDto.getListQuestion() != null) {
 			for (String obj : examDto.getListQuestion()) {
 				ExamQuestion examQuestion = new ExamQuestion();
-				Question question = questionService.get(Integer.parseInt(obj));
+				Question question = questionService.get(obj);
 				examQuestion.setExamCode(exam.getExamCode());
 				examQuestion.setQuestionCode(question.getQuestionCode());
 				examQuestionService.save(examQuestion);

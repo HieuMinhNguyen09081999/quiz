@@ -221,9 +221,9 @@
 								<label for="duration">Chọn câu hỏi </label>
 							</div>
 							<div class="col-12 col-md-8">
-								<select  name="listQuestion" id="listQuestion" style="width: inherit;" size="8" multiple="multiple">
-									<option th:each="question, state : ${listQuestion}" 
-										th:value="${question.questionId}">
+								<select name="listQuestion" th:field="*{listQuestion}" id="listQuestion" style="width: inherit;" size="8" multiple="multiple">
+									<option th:each="question : ${listQuestion}" 
+										th:value="${question.questionCode}">
 										<div style="width: inherit; overflow: hidden;">
 											<span th:utext="${question.questionCode} + '-' + ${question.question}"></span>
 										</div>
