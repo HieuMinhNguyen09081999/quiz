@@ -5,7 +5,7 @@ $(document).ready(function() {
 			$('#listQuestion').empty();
 			$.each(result, function(i, question) {
 				console.log(question);
-				var q = "<option value=''" + question.questionId + "''>" + question.questionCode + "-" +
+				var q = "<option value='" + question.questionCode + "'>" + question.questionCode + "-" +
 					question.question + "</option>";
 				$('#listQuestion').append(q);
 			});

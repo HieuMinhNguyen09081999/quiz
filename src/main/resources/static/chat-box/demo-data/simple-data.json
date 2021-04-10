@@ -1,0 +1,25 @@
+[{
+    "id": 1,
+    "text": "Bạn muốn gì?",
+    "messageType": "Question",
+    "imageUrl": "",
+    "nextMessageId": "",
+    "option1": "Tôi muốn xem điểm.",
+    "option1_nextMessageId": 2,
+    "option2": "Tôi không muốn làm gì cả.",
+    "option2_nextMessageId": 3
+  },
+  {
+    "id": 2,
+    "text": "Đã xem",
+    "messageType": "Text",
+    "imageUrl": "",
+    "nextMessageId": ""
+  },
+  {
+    "id": 3,
+    "text": "Oke",
+    "messageType": "Text",
+    "imageUrl": "",
+    "nextMessageId": ""
+  }]

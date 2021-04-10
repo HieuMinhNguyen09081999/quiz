@@ -10,6 +10,8 @@
 	crossorigin="anonymous">
 <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/chat-box/flowchat.css}" />
+<script th:src="@{/chat-box/flowchat.js}"></script>
 <script th:src="@{/js/callAjax.js}"></script>
 <script th:src="@{/js/script.js}"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -253,17 +255,24 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<div class="chat_icon">
+		<i class="fas fa-comment"></i>
+	</div>
+	
+	<div class="chat_box" id="flowchat">
+		
+	</div>
+	<script th:src="@{/js/sweetalert.min.js}"></script>
 	<script>
 		var result = document.getElementById("result").innerHTML;
-		console.log(result);
 		function removeReg(del_reg) {
 	        swal({
 	            title: "Good job!",
 	            text: "Chúc mừng bạn đã hoàn thành bài kiểm tra",
 	            icon: "success",
 	            button: "Close!",
-	        }).then((value) => {s
+	        }).then((value) => {
 	            swal(`Kết quả của bạn là: ${result}`);
 	        });
 	    }
