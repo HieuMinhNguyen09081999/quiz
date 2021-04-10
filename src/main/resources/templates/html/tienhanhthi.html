@@ -58,7 +58,7 @@
 			</div>
 		</div>
 	</nav>
-	<div class="container" style="margin-top: 30px; height: auto;">
+	<div class="container" id="container">
 		<div class="row d-flex justify-content-center" style="height: auto;">
 			<div class="col-12 row mb-3" style="font-size: 25px; font-family: 'Times New Roman', Times, serif">
 				<div class="col-3" th:text="'Mã đề thi: ' + ${examDto.examCode}"></div>
@@ -73,57 +73,60 @@
 					<i class="far fa-clock">&nbsp;&nbsp;</i>
 					<span id="countdown"></span>
 				</div>
+				<hr style="height: 1px; width: 100%;">
 			</div>
-			<div class="col-12 text-center d-flex justify-content-center">
-				<ul class="nav nav-tabs" role="tablist">
-					<li th:each="question,state : ${listQuestion}" class="nav-item" role="presentation"><a
-							class="nav-link " th:classappend="${state.first} ? 'active'" data-toggle="tab"
-							th:href="@{'#q' + ${state.index + 1}}" th:text="${state.index + 1}"></a></li>
-				</ul>
-			</div>
-			<div class="col-12" style="min-height: 440px;">
-				<form style="font-size: 18px;" th:action="@{http://localhost:8080/testing/save}" method="post" th:object="${examDto}">
-					<div style="display: none;">
-						<p id="duration" th:text="${duration}"></p>
-						<input type="hidden" th:field="*{examCode}" />
-					</div>
-					<div class="tab-content" style="min-height: 300px;">
-						<div th:each="questionA,state : ${listQuestion}" class="container tab-pane"
-							th:classappend="${state.first} ? 'active'" th:id="'q' + ${state.index + 1}">
-							<span th:utext="'Câu ' + ${state.index + 1} + ': ' + ${questionA.question}"></span>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="radio" class="form-check-input"
-										th:name="${questionA.questionCode}" value="1"> <span
-										th:text=${questionA.answer_1}></span>
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="radio" class="form-check-input"
-										th:name="${questionA.questionCode}" value="2"> <span
-										th:text=${questionA.answer_2}></span>
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="radio" class="form-check-input"
-										th:name="${questionA.questionCode}" value="3"> <span
-										th:text=${questionA.answer_3}></span>
-								</label>
-							</div>
-							<div class="form-check">
-								<label class="form-check-label"> <input type="radio" class="form-check-input"
-										th:name="${questionA.questionCode}" value="4"> <span
-										th:text=${questionA.answer_4}></span>
-								</label>
+			<div class=row>
+				<div class="col-2 text-center d-flex justify-content-center">
+					<ul id="list-question" class="nav nav-tabs" role="tablist">
+						<li th:each="question,state : ${listQuestion}" class="nav-item" role="presentation"><a
+								class="nav-link " th:classappend="${state.first} ? 'active'" data-toggle="tab"
+								th:href="@{'#q' + ${state.index + 1}}" th:text="'Câu '+ ${state.index + 1}"></a></li>
+					</ul>
+				</div>
+				<div class="col-10" style="min-height: 440px;">
+					<form style="font-size: 18px;" th:action="@{http://localhost:8080/testing/save}" method="post" th:object="${examDto}">
+						<div style="display: none;">
+							<p id="duration" th:text="${duration}"></p>
+							<input type="hidden" th:field="*{examCode}" />
+						</div>
+						<div class="tab-content" style="min-height: 300px;">
+							<div th:each="questionA,state : ${listQuestion}" class="container tab-pane"
+								th:classappend="${state.first} ? 'active'" th:id="'q' + ${state.index + 1}">
+								<span th:utext="'Câu ' + ${state.index + 1} + ': ' + ${questionA.question}"></span>
+								<div class="form-check">
+									<label class="form-check-label"> <input type="radio" class="form-check-input"
+											th:name="${questionA.questionCode}" value="1"> <span
+											th:text=${questionA.answer_1}></span>
+									</label>
+								</div>
+								<div class="form-check">
+									<label class="form-check-label"> <input type="radio" class="form-check-input"
+											th:name="${questionA.questionCode}" value="2"> <span
+											th:text=${questionA.answer_2}></span>
+									</label>
+								</div>
+								<div class="form-check">
+									<label class="form-check-label"> <input type="radio" class="form-check-input"
+											th:name="${questionA.questionCode}" value="3"> <span
+											th:text=${questionA.answer_3}></span>
+									</label>
+								</div>
+								<div class="form-check">
+									<label class="form-check-label"> <input type="radio" class="form-check-input"
+											th:name="${questionA.questionCode}" value="4"> <span
+											th:text=${questionA.answer_4}></span>
+									</label>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row ">
-						<div class="col-6"></div>
-						<div class="col-6">
-							<button class="btn btn-success"style="margin: 0 auto;" id="sendData">Nộp bài</button>						
+						<div class="row ">
+							<div class="col-6"></div>
+							<div class="col-6">
+								<button class="btn btn-success"style="margin: 0 auto;" id="sendData">Nộp bài</button>						
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 		<div th:if="${totalPages > 1}">

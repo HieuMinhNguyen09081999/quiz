@@ -62,16 +62,17 @@ body {
 	position: fixed;
 	right: 30px;
 	bottom: 0;
-	font-size: 65px;
+	font-size: 60px;
 	color: #3366CC;
 	cursor: pointer;
 	z-index: 1000;
+	transform: scale(-1, 1);
 }
 
 .chat_box{
 	position: fixed;
 	right: 20px;
-	bottom: 80px;
+	bottom: 70px;
 	width: 310px;
 	height: 0vh;
 	background: #dedede;
@@ -84,4 +85,23 @@ body {
 .chat_box.active{
 	height: 70vh;
 	transform: scaleY(1);
+}
+#container{
+	background-color: #FFFFFF;
+	padding-top: 20px; 
+	height: auto;
+}
+#list-question{
+	overflow: auto;
+	height: 440px;
+}
+#list-question li{
+	display: block !important;
+	width: 90%;
+	float: left !important;
+}
+#list-question li a.active{
+	font-weight: bold;
+	
+	background: #DDDDDD;
 }
