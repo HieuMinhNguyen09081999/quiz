@@ -18,6 +18,13 @@
 </head>
 
 <body>
+	<div class="chat_icon">
+		<i class="fas fa-comment"></i>
+	</div>
+	
+	<div class="chat_box" id="flowchat">
+		
+	</div>
 	<div id="mess-panel" class="alert alert-danger alert-dismissible">
 		<div>
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -36,12 +43,12 @@
 		<div id="my-nav" class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-4 jus mr-auto">
 				<li class="nav-item mr-3"><a class="nav-link"
-					th:href="@{http://localhost:8080/report}"><i class="fas fa-chart-bar"></i> Thống kê </a></li>
-				<li class="nav-item active mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/account}"><i class="fas fa-chart-bar"></i> Thống kê </a></li>
+				<li class="nav-item mr-3"><a class="nav-link"
 					th:href="@{http://localhost:8080/account}"><i class="fas fa-users"></i> Quản
 						lý tài khoản </a></li>
-				<li class="nav-item mr-3"><a class="nav-link"
-					th:href="@{http://localhost:8080/subject}"><i class="fas fa-book"></i> Quản
+				<li class="nav-item active mr-3"><a class="nav-link"
+					th:href="@{http://localhost:8080/subject}"><i class="fas fa-book"></i></i> Quản
 						lý môn thi </a></li>
 				<li style="cursor: pointer;" class="nav-item dropdown mr-3 "><a class="nav-link dropdown-toggle" data-toggle="dropdown" >
 					<i class="fas fa-pencil-alt"></i> Tham giathi </a>
@@ -74,60 +81,21 @@
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#createOrUpdate"><i class="far fa-plus-square"></i> Thêm mới</button>
 		</div>
-		<div class="row mb-3">
-			<div class="col-12 card p-1">
-				<div class="card-header">Tìm kiếm</div>
-				<div class="card-body">
-					<form th:action="@{/account/page/1}" >
-						<div class="row">
-							<div class="col-12 col-md-4">
-								<div class="form-group">
-									<input id="keyword" class="form-control col-12"
-										placeholder="Nhập từ khóa để tìm kiếm" type="text" th:value="${keyword}" name="keyword">
-								</div>
-							</div>
-							<div class="col-12 col-md-3">
-								<button class="btn btn-success mr-3" type="submit"><i class="fas fa-search"></i> Tìm
-									kiếm</button>
-								<a th:href="@{http://localhost:8080/account}"><button class="btn btn-warning"
-										type="button"><i class="fas fa-sync-alt"></i> Làm mới</button></a>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
 		<div class="row" style="height: auto;">
 			<table class="table table-striped table-bordered text-center">
 				<thead class="thead-dark">
 					<tr>
 						<th>STT</th>
-						<th>Avatar</th>
-						<th>Mã tài khoản</th>
-						<th>Họ và tên</th>
-						<th>Giới tính</th>
-						<th>Ngày sinh</th>
-						<th>Số điện thoại</th>
-						<th>Email</th>
-						<th>Xóa</th>
-						<th>Sửa</th>
+						<th>Tên Môn</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr style="height: 105px;" th:each="account,state : ${listAccount}">
+					<tr th:each="subject,state : ${listSubject}">
 						<td th:text="${state.index + 1}">STT</td>
-						<td><img th:src="@{'http://localhost:8080/getimage/' + ${account.avtPath}}"
-							style="height: 70xp; width: 70px; border-radius: 50%; margin: 0 auto;" /></td>
-						<td th:text="${account.accountCode}">Mã tài khoản</td>
-						<td th:text="${account.fullName}">Họ và tên</td>
-						<td th:text="${account.gender == 0}? 'Nam' : 'Nữ'">Giới tính</td>
-						<td th:text="${#dates.format(account.birthOfDate, 'dd-MM-yyyy')}">Ngày
-							sinh</td>
-						<td th:text="${account.phoneNumber}">Số điện thoại</td>
-						<td th:text="${account.email}">Email</td>
-						<td class="text-center">
+						<td th:text="${subject.subjectName}"></td>
+<!--  					<td class="text-center">
 							<button class="btn btn-primary"
-								th:onclick="|setAccountIdDelete('${account.accountId}')|"
+								th:onclick="|setAccountIdDelete('${subject.subjectId}')|"
 								data-toggle="modal" data-target="#delete" type="button">
 								<i class="fas fa-trash-alt"></span> </i>
 							</button>
@@ -136,7 +104,7 @@
 							th:href="@{'http://localhost:8080/account/edit/' + ${account.accountId}}"><button
 									class="btn btn-primary" type="button">
 									<i class="fas fa-edit"></i>
-								</button></a></td>
+								</button></a></td> -->	
 					</tr>
 				</tbody>
 			</table>
@@ -180,98 +148,16 @@
 					<h5 class="modal-title" id="createOrUpdateAccount">Thêm mới</h5>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
-				<form action="" th:action="@{http://localhost:8080/account/save}" th:object="${account}" onsubmit="return validate()"
+				<form action="" th:action="@{http://localhost:8080/subject/save}" th:object="${subject}" onsubmit="return validate()"
 					method="post">
 					<div class="modal-body">
 						<div class="row m-2">
 							<div class="col-12 col-md-3">
-								<label for="fullName">Họ và tên <span class="red">(*)</span></label>
+								<label for="fullName">Tên môn <span class="red">(*)</span></label>
 							</div>
 							<div class="col-12 col-md-8">
-								<input class="form-control" id="fullName" th:field="*{fullName}"
-									placeholder="Nhập họ và tên" type="text" name="">
-							</div>
-						</div>
-						<div class="row m-2">
-							<div class="col-12 col-md-3">
-								<label for="gender">Giới tính</label>
-							</div>
-							<div class="col-12 col-md-8">
-								<div class="form-check-inline">
-									<div class="mr-4">
-										<input class="form-check-input" type="radio" name="gender"
-											id="male" th:value="0" th:field="*{gender}"> <label
-											class="form-check-label" for="male"> Nam </label>
-									</div>
-									<div>
-										<input class="form-check-input" type="radio" name="gender"
-											id="female" th:value="1" th:field="*{gender}"> <label
-											class="form-check-label" for="female"> Nữ </label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row m-2">
-							<div class="col-12 col-md-3">
-								<label for="birthOfDate">Ngày sinh</label>
-							</div>
-							<div class="col-12 col-md-8">
-								<input class="form-control" id="birthOfDate"
-									placeholder="Nhập ngày sinh" th:field="*{birthOfDate}"
-									type="date" name="">
-							</div>
-						</div>
-						<div class="row m-2">
-							<div class="col-12 col-md-3">
-								<label for="phoneNumber">Số điện thoại</label>
-							</div>
-							<div class="col-12 col-md-8">
-								<input class="form-control" th:field="*{phoneNumber}"
-									id="phoneNumber" placeholder="Nhập số điện thoại" type="text"
-									name="">
-							</div>
-						</div>
-						<div class="row m-2">
-							<div class="col-12 col-md-3">
-								<label for="email">Email <span class="red">(*)</span></label>
-							</div>
-							<div class="col-12 col-md-8">
-								<input class="form-control" th:field="*{email}" id="email"
-									placeholder="Nhập email" type="text" name="">
-							</div>
-						</div>
-						<div class="row m-2">
-							<div class="col-12 col-md-3">
-								<label for="password">Mật khẩu <span class="red">(*)</span></label>
-							</div>
-							<div class="col-12 col-md-8">
-								<input class="form-control" th:field="*{password}" id="password"
-									placeholder="Nhập mật khẩu" type="text" name="">
-							</div>
-						</div>
-						<div class="row m-2">
-							<div class="col-12 col-md-3">
-								<label for="role">Quyền</label>
-							</div>
-							<div class="col-12 col-md-8">
-								<div class="form-check-inline">
-									<div class="mr-4">
-										<input class="form-check-input" type="radio" name="role"
-											id="admin" th:field="*{role}" th:value="0"> <label
-											class="form-check-label" for="admin"> Admin </label>
-									</div>
-									<div class="mr-4">
-										<input class="form-check-input" type="radio" name="role"
-											id="managerExam" th:field="*{role}" th:value="1"> <label
-											class="form-check-label" for="managerExam"> Quản lý
-											đề thi </label>
-									</div>
-									<div>
-										<input class="form-check-input" type="radio" name="role"
-											id="student" th:field="*{role}" th:value="2"> <label
-											class="form-check-label" for="student"> Người thi </label>
-									</div>
-								</div>
+								<input class="form-control" id="fullName" th:field="*{subjectName}"
+									placeholder="Nhập tên môn" type="text" name="">
 							</div>
 						</div>
 					</div>
@@ -306,14 +192,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="chat_icon">
-		<i class="fas fa-comment"></i>
-	</div>
-	
-	<div class="chat_box" id="flowchat">
-		
-	</div>
-	<script th:src="@{/js/quanlytaikhoan.js}"></script>
 	<script type="text/javascript">
 		function setAccountIdDelete(accountId) {
 			var form = document.getElementById("formDelete");

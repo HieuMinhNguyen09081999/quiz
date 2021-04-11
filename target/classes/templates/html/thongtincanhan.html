@@ -35,6 +35,9 @@
 		</button>
 		<div id="my-nav" class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-4 jus mr-auto">
+				<li th:if="${session.account.role} == 0" class="nav-item mr-3">
+					<a class="nav-link" th:href="@{http://localhost:8080/report}"><i class="fas fa-chart-bar"></i> Thống kê </a>
+				</li>
 				<li class="nav-item mr-3"
 					th:style="${session.account.role} == 2 ? 'display: none;' : ''"><a
 					class="nav-link"
@@ -42,6 +45,9 @@
 						class="fas fa-users"></i> <span
 						th:text="${session.account.role} == 0 ? 'Quản lý tài khoản' : 'Quản lý đề thi'"></span>
 				</a></li>
+				<li th:if="${session.account.role} == 0" class="nav-item mr-3">
+					<a class="nav-link" th:href="@{http://localhost:8080/subject}"><i class="fas fa-book"></i> Quản lý môn thi</a>
+				</li>
 				<li class="nav-item mr-3"
 					th:style="${session.account.role} != 1 ? 'display: none;' : ''"><a
 					class="nav-link" th:href="@{http://localhost:8080/question/}"><i

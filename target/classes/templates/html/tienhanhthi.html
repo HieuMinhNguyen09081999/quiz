@@ -22,12 +22,18 @@
 		</button>
 		<div id="my-nav" class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-4 jus mr-auto">
+				<li th:if="${session.account.role} == 0" class="nav-item mr-3">
+					<a class="nav-link" th:href="@{http://localhost:8080/report}"><i class="fas fa-chart-bar"></i> Thống kê </a>
+				</li>
 				<li class="nav-item mr-3" th:style="${session.account.role} == 2 ? 'display: none;' : ''"><a
 						class="nav-link"
 						th:href="${session.account.role} == 0 ? @{http://localhost:8080/account/} : @{http://localhost:8080/exam/}"><i
 							class="fas fa-users"></i> <span
 							th:text="${session.account.role} == 0 ? 'Quản lý tài khoản' : 'Quản lý đề thi'"></span>
 					</a></li>
+				<li th:if="${session.account.role} == 0" class="nav-item mr-3">
+					<a class="nav-link" th:href="@{http://localhost:8080/subject}"><i class="fas fa-book"></i> Quản lý môn thi</a>
+				</li>
 				<li class="nav-item mr-3" th:style="${session.account.role} != 1 ? 'display: none;' : ''"><a
 						class="nav-link" th:href="@{http://localhost:8080/question/}"><i class="fas fa-question"></i>
 						Quản lý câu hỏi </a></li>
@@ -89,7 +95,7 @@
 							<p id="duration" th:text="${duration}"></p>
 							<input type="hidden" th:field="*{examCode}" />
 						</div>
-						<div class="tab-content" style="min-height: 300px;">
+						<div class="tab-content" style="min-height: 380px;">
 							<div th:each="questionA,state : ${listQuestion}" class="container tab-pane"
 								th:classappend="${state.first} ? 'active'" th:id="'q' + ${state.index + 1}">
 								<span th:utext="'Câu ' + ${state.index + 1} + ': ' + ${questionA.question}"></span>
@@ -119,10 +125,10 @@
 								</div>
 							</div>
 						</div>
-						<div class="row ">
-							<div class="col-6"></div>
-							<div class="col-6">
-								<button class="btn btn-success"style="margin: 0 auto;" id="sendData">Nộp bài</button>						
+						<div class="row">
+							<div class="col-10"></div>
+							<div class="col-2">
+								<button class="btn btn-success" id="sendData">Nộp bài</button>						
 							</div>
 						</div>
 					</form>
@@ -166,7 +172,6 @@
 		const startTime = document.getElementById('duration').innerHTML;
 		let time = startTime * 60;
 		const countDown = document.getElementById('countdown');
-		countDown.innerHTML =  startTime;
 		var inter = setInterval(updateCountDown, 1000);
 		function updateCountDown() {
 			const minutes = Math.floor(time / 60);

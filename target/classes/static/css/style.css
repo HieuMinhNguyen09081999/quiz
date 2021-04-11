@@ -97,7 +97,7 @@ body {
 }
 #list-question li{
 	display: block !important;
-	width: 90%;
+	width: 80%;
 	float: left !important;
 }
 #list-question li a.active{

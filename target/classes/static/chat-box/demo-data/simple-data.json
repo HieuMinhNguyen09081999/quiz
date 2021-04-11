@@ -4,21 +4,21 @@
     "messageType": "Question",
     "imageUrl": "",
     "nextMessageId": "",
-    "option1": "Tôi muốn xem điểm.",
+    "option1": "Gợi ý lò luyện thi tốt.",
     "option1_nextMessageId": 2,
-    "option2": "Tôi không muốn làm gì cả.",
+    "option2": "Tôi muốn báo lỗi.",
     "option2_nextMessageId": 3
   },
   {
     "id": 2,
-    "text": "Đã xem",
+    "text": "Bạn có thể xem tại đây <a href='https://tuyensinh247.com/'>đây</a>",
     "messageType": "Text",
     "imageUrl": "",
     "nextMessageId": ""
   },
   {
     "id": 3,
-    "text": "Oke",
+    "text": "Bạn đã báo lỗi",
     "messageType": "Text",
     "imageUrl": "",
     "nextMessageId": ""
