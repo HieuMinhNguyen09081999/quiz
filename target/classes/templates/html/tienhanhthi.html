@@ -92,7 +92,6 @@
 				<div class="col-10" style="min-height: 440px;">
 					<form style="font-size: 18px;" th:action="@{http://localhost:8080/testing/save}" method="post" th:object="${examDto}">
 						<div style="display: none;">
-							<p id="duration" th:text="${duration}"></p>
 							<input type="hidden" th:field="*{examCode}" />
 						</div>
 						<div class="tab-content" style="min-height: 380px;">
@@ -169,7 +168,7 @@
 		<p class="m-1">&copy; Nguyễn Minh Hiếu - 2021 </p>
 	</div>
 	<script type="text/javascript">
-		const startTime = document.getElementById('duration').innerHTML;
+		const startTime = [[${duration}]];
 		let time = startTime * 60;
 		const countDown = document.getElementById('countdown');
 		var inter = setInterval(updateCountDown, 1000);

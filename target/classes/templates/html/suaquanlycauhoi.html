@@ -197,11 +197,22 @@
 	<div class="chat_box" id="flowchat">
 		
 	</div>
+	<script th:src="@{/ckeditor/ckeditor.js}"></script>
+	<script th:src="@{/ckfinder/ckfinder.js}"></script>
 	<script th:src="@{/js/quanlycauhoi.js}"></script>
+	
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#question').richText();
-		});
+		CKEDITOR
+		.replace(
+				'question',
+				{
+					filebrowserBrowseUrl : 'ckfinder/ckfinder.html',
+					filebrowserImageBrowseUrl : 'ckfinder/ckfinder.html?type=Images',
+					filebrowserFlashBrowseUrl : 'ckfinder/ckfinder.html?type=Flash',
+					filebrowserUploadUrl : 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Files',
+					filebrowserImageUploadUrl : 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Images',
+					filebrowserFlashUploadUrl : 'ckfinder/core/connector/java/connector.java?command=QuickUpload&type=Flash'
+				});
 	</script>
 </body>
 

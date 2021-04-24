@@ -70,8 +70,12 @@
 		</div>
 	</nav>
 	<div class="container" style="min-height: 560px;">
-		<div class="m-5" id="bar-chart"></div>
-		<div class="m-5" id="pie-chart"></div>
+		<div class="mt-5 mb-5" id="bar-chart-account"></div>
+		<div class="row">
+			<div class="col-6" id="bar-chart-exam"></div>
+			<div class="col-6" id="bar-chart-question"></div>
+		</div>
+		<div class="mt-5 mb-5" id="pie-chart"></div>
 	</div>
 	<div class="jumbotron text-center p-1" style="margin-bottom: 0;">
 		<p class="m-1">&copy; Nguyễn Minh Hiếu - 2021</p>
@@ -84,13 +88,15 @@
 	<div class="chat_box" id="flowchat">
 		
 	</div>
+	<script th:src="@{/js/highcharts.js}"></script>
 	
-	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script type="text/javascript" th:inline="javascript">
-		Highcharts.chart('bar-chart', {
-	
-		    title: {
-		        text: 'Lượng người truy cập từ 2015 đến nay'
+		Highcharts.chart('bar-chart-account', {
+			chart: {
+			        type: 'column'
+			},
+			title: {
+		        text: 'Thống kê tài khoản tạo mới'
 		    },
 	
 		    subtitle: {
@@ -98,51 +104,104 @@
 		    },
 	
 		    yAxis: {
+		    	min: 0,
 		        title: {
-		            text: 'Lượng truy cập'
+		            text: 'Số tài khoản'
 		        }
 		    },
 	
 		    xAxis: {
-		        accessibility: {
-		            rangeDescription: 'Range: 2010 to 2021'
-		        }
-		    },
-	
-		    legend: {
-		        layout: 'vertical',
-		        align: 'right',
-		        verticalAlign: 'middle'
+		    	categories: [[${reportAccount.keySet()}]],
+		        crosshair: true
 		    },
 	
 		    plotOptions: {
-		        series: {
-		            label: {
-		                connectorAllowed: false
-		            },
-		            pointStart: 2015
+		    	column: {
+		            pointPadding: 0.2,
+		            borderWidth: 0
 		        }
 		    },
 	
 		    series: [{
-		        name: 'Số người truy cập',
-		        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133]
-		    }],
+		    	name: "Số tài khoản",
+		    	data: [[${reportAccount.values()}]]
+		    }]
 	
-		    responsive: {
-		        rules: [{
-		            condition: {
-		                maxWidth: 500
-		            },
-		            chartOptions: {
-		                legend: {
-		                    layout: 'horizontal',
-		                    align: 'center',
-		                    verticalAlign: 'bottom'
-		                }
-		            }
-		        }]
-		    }
+		});
+		
+		Highcharts.chart('bar-chart-question', {
+			chart: {
+			        type: 'column'
+			},
+			title: {
+		        text: 'Thống kê câu hỏi tạo mới'
+		    },
+	
+		    subtitle: {
+		        text: 'Quiz Online'
+		    },
+	
+		    yAxis: {
+		    	min: 0,
+		        title: {
+		            text: 'Số câu hỏi'
+		        }
+		    },
+	
+		    xAxis: {
+		    	categories: [[${reportQuestion.keySet()}]],
+		        crosshair: true
+		    },
+	
+		    plotOptions: {
+		    	column: {
+		            pointPadding: 0.2,
+		            borderWidth: 0
+		        }
+		    },
+	
+		    series: [{
+		    	name: "Số câu hỏi",
+		    	data: [[${reportQuestion.values()}]]
+		    }]
+	
+		});
+		
+		Highcharts.chart('bar-chart-exam', {
+			chart: {
+			        type: 'column'
+			},
+			title: {
+		        text: 'Thống kê đề thi tạo mới'
+		    },
+	
+		    subtitle: {
+		        text: 'Quiz Online'
+		    },
+	
+		    yAxis: {
+		    	min: 0,
+		        title: {
+		            text: 'Số đề thi'
+		        }
+		    },
+	
+		    xAxis: {
+		    	categories: [[${reportExam.keySet()}]],
+		        crosshair: true
+		    },
+	
+		    plotOptions: {
+		    	column: {
+		            pointPadding: 0.2,
+		            borderWidth: 0
+		        }
+		    },
+	
+		    series: [{
+		    	name: "Số đề thi",
+		    	data: [[${reportExam.values()}]]
+		    }]
 	
 		});
 		
@@ -187,17 +246,17 @@
 		            data: [
 		                {
 		                    name: "Dễ",
-		                    y: 62.74,
+		                    y: [[${easy}]],
 		                    drilldown: "Dễ"
 		                },
 		                {
 		                    name: "Trung Bình",
-		                    y: 29.57,
+		                    y: [[${normal}]],
 		                    drilldown: "Trung Bình"
 		                },
 		                {
 		                    name: "Khó",
-		                    y: 7.69,
+		                    y: [[${hard}]],
 		                    drilldown: "Khó"
 		                }
 		            ]
