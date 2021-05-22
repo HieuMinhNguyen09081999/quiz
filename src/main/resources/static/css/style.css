@@ -76,7 +76,7 @@ body {
 	width: 310px;
 	height: 0vh;
 	background: #dedede;
-	z-index: 1000px;
+	z-index: 1000;
 	border: 5px black solid;
 	border-radius: 2%;
 	transition: height 0.3s ease-out;

@@ -7,10 +7,7 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/font-awesome/css/all.css}">
 <link rel="stylesheet" th:href="@{/chat-box/flowchat.css}" />
 <script th:src="@{/chat-box/flowchat.js}"></script>
 <script th:src="@{/js/script.js}"></script>
@@ -203,65 +200,6 @@
 		    	data: [[${reportExam.values()}]]
 		    }]
 	
-		});
-		
-		Highcharts.chart('pie-chart', {
-		    chart: {
-		        type: 'pie'
-		    },
-		    
-		    title: {
-		        text: 'Tỉ lệ độ khó của đề thi'
-		    },
-		    subtitle: {
-		        text: 'Quiz Online'
-		    },
-		    accessibility: {
-		        announceNewData: {
-		            enabled: true
-		        },
-		        point: {
-		            valueSuffix: '%'
-		        }
-		    },
-
-		    plotOptions: {
-		        series: {
-		            dataLabels: {
-		                enabled: true,
-		                format: '{point.name}: {point.y:.1f}%'
-		            }
-		        }
-		    },
-
-		    tooltip: {
-		        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-		        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-		    },
-
-		    series: [
-		        {
-		            name: "Đề thi",
-		            colorByPoint: true,
-		            data: [
-		                {
-		                    name: "Dễ",
-		                    y: [[${easy}]],
-		                    drilldown: "Dễ"
-		                },
-		                {
-		                    name: "Trung Bình",
-		                    y: [[${normal}]],
-		                    drilldown: "Trung Bình"
-		                },
-		                {
-		                    name: "Khó",
-		                    y: [[${hard}]],
-		                    drilldown: "Khó"
-		                }
-		            ]
-		        }
-		    ]
 		});
 	</script>
 </body>
