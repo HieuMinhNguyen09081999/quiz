@@ -1,25 +1,36 @@
-[{
-    "id": 1,
-    "text": "Bạn muốn gì?",
-    "messageType": "Question",
-    "imageUrl": "",
-    "nextMessageId": "",
-    "option1": "Tôi muốn xem điểm.",
-    "option1_nextMessageId": 2,
-    "option2": "Tôi không muốn làm gì cả.",
-    "option2_nextMessageId": 3
-  },
-  {
-    "id": 2,
-    "text": "Đã xem",
-    "messageType": "Text",
-    "imageUrl": "",
-    "nextMessageId": ""
-  },
-  {
-    "id": 3,
-    "text": "Oke",
-    "messageType": "Text",
-    "imageUrl": "",
-    "nextMessageId": ""
-  }]
+[
+	{
+		"id": 1,
+		"text": "Bạn muốn gì?",
+		"messageType": "Question",
+		"imageUrl": "",
+		"nextMessageId": "",
+		"option1": "Đăng ký tài khoản mới",
+		"option1_nextMessageId": 2,
+		"option2": "Giới thiệu về trang web Quiz online",
+		"option2_nextMessageId": 3,
+		"option3": "Gợi ý lò luyện thi tốt.",
+		"option3_nextMessageId": 4
+	},
+	{
+		"id": 2,
+		"text": "Đăng ký tài khoản mới vui lòng nhấn <a href='http://localhost:8080/register'>tại đây</a>",
+		"messageType": "Text",
+		"imageUrl": "",
+		"nextMessageId": 1
+	},
+	{
+		"id": 3,
+		"text": "Trang web Quiz online cung cấp cho các sĩ thử những đề thi trắc nghiệm bám sát với kì thi THPT Quốc gia. Ngoài ra bạn cũng có thể cũng cấp các câu hỏi và bộ đề.",
+		"messageType": "Text",
+		"imageUrl": "",
+		"nextMessageId": 1
+	},
+	{
+		"id": 4,
+		"text": "Bạn có thể tham khảo <a href='https://tuyensinh247.com/'>tại đây</a>.",
+		"messageType": "Text",
+		"imageUrl": "",
+		"nextMessageId": 1
+	}
+]

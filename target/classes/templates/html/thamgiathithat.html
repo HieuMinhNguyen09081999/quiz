@@ -4,12 +4,11 @@
 <head>
 <title>Quiz Online</title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
-	crossorigin="anonymous">
 <script th:src="@{/js/jquery-3.5.1.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" th:href="@{/font-awesome/css/all.css}">
+<link rel="stylesheet" th:href="@{/chat-box/flowchat.css}" />
+<script th:src="@{/chat-box/flowchat.js}"></script>
 <script th:src="@{/js/callAjax.js}"></script>
 <script th:src="@{/js/script.js}"></script>
 <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -27,6 +26,9 @@
 		</button>
 		<div id="my-nav" class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-4 jus mr-auto">
+				<li th:if="${session.account.role} == 0" class="nav-item mr-3">
+					<a class="nav-link" th:href="@{http://localhost:8080/report}"><i class="fas fa-chart-bar"></i> Thống kê </a>
+				</li>
 				<li class="nav-item mr-3"
 					th:style="${session.account.role} == 2 ? 'display: none;' : ''"><a
 					class="nav-link"
@@ -34,6 +36,9 @@
 						class="fas fa-users"></i> <span
 						th:text="${session.account.role} == 0 ? 'Quản lý tài khoản' : 'Quản lý đề thi'"></span>
 				</a></li>
+				<li th:if="${session.account.role} == 0" class="nav-item mr-3">
+					<a class="nav-link" th:href="@{http://localhost:8080/subject}"><i class="fas fa-book"></i> Quản lý môn thi</a>
+				</li>
 				<li class="nav-item mr-3"
 					th:style="${session.account.role} != 1 ? 'display: none;' : ''"><a
 					class="nav-link" th:href="@{http://localhost:8080/question/}"><i
@@ -193,6 +198,13 @@
 	</div>
 	<div class="jumbotron text-center p-1" style="margin-bottom: 0;">
 		<p class="m-1">&copy; Nguyễn Minh Hiếu - 2021</p>
+	</div>
+	<div class="chat_icon">
+		<i class="fas fa-comment"></i>
+	</div>
+	
+	<div class="chat_box" id="flowchat">
+		
 	</div>
 	<script th:src="@{/js/sweetalert.min.js}"></script>
 	<script>

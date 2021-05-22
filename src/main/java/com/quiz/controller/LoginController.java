@@ -32,7 +32,7 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
 		if(account != null && account.getRole() == 0) {
-			return "redirect:/account";
+			return "redirect:/report";
 		} else if (account != null && account.getRole() == 1){
 			return "redirect:/exam";
 		} else if (account != null && account.getRole() == 2){

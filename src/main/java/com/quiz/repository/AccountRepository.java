@@ -19,4 +19,8 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 	public Page<Account> findAll(@Param("keyword") String keyword, Pageable pageable);
 	
 	public Account findAccoutByEmailAndPassword(String email, String password);
+	
+	public Account findAccoutByEmail(String email);
+	
+	
 }
