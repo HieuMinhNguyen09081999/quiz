@@ -12,7 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Exam")
-public class Exam extends Common {
+public class Exam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer examId;
@@ -25,6 +25,10 @@ public class Exam extends Common {
 	private Integer amountQuestionEasy;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date startTime;
+	private Integer createBy;
+	private Date createDate;
+	private Integer updateBy;
+	private Date updateDate;
 
 	public Integer getExamId() {
 		return examId;
@@ -97,9 +101,28 @@ public class Exam extends Common {
 	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
-
-	public Exam() {
-		super();
+	public Integer getCreateBy() {
+		return createBy;
 	}
-
+	public void setCreateBy(Integer createBy) {
+		this.createBy = createBy;
+	}
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Integer getUpdateBy() {
+		return updateBy;
+	}
+	public void setUpdateBy(Integer updateBy) {
+		this.updateBy = updateBy;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 }

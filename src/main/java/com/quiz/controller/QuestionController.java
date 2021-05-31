@@ -55,11 +55,15 @@ public class QuestionController {
 	@RequestMapping(value = "question/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("questionNew") Question question, HttpSession session) {
 		Account account = (Account) session.getAttribute("account");
+		Question temp = null;
 		if (question.getQuestionCode() == null) {
 			question.setQuestionCode("Q" + (questionService.getMaxId() + 1));
 			question.setCreateBy(account.getAccountId());
 			question.setCreateDate(new Date());
 		} else {
+			temp = questionService.get(question.getQuestionId());
+			question.setCreateBy(temp.getCreateBy());
+			question.setCreateDate(temp.getCreateDate());
 			question.setUpdateBy(account.getAccountId());
 			question.setUpdateDate(new Date());
 		}

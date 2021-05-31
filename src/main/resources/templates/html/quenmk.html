@@ -37,12 +37,12 @@
 									<input type="text" class="form-control" placeholder="Email"
 										id="email">
 								</div>
-								<button type="button" id="sendCode" class="col-12 btn btn-success">Gửi
-									mã xác nhận</button>
+								<button type="button" id="sendCode"
+									class="col-12 btn btn-success">Gửi mã xác nhận</button>
 
 								<button type="button" id="openModal" data-toggle="modal"
-									data-target="#quenmk" class="col-12 btn btn-success" style="display: none;">Gửi
-									mã xác nhận</button>
+									data-target="#quenmk" class="col-12 btn btn-success"
+									style="display: none;">Gửi mã xác nhận</button>
 
 							</form>
 							<div class="text-center mt-3">
@@ -69,6 +69,14 @@
 				</div>
 				<form action="" method="post" id="sendEmail">
 					<div class="modal-body">
+						<span id="countdown"></span>
+						<div class="row m-4">
+							<div class="col-2"></div>
+							<div class="col-8">
+								<span>Code sẽ hết hạn sau </span> <span style="font-weight: bold;" id="expireCode"></span> <span> giây.</span>
+							</div>
+							<div class="col-2"></div>
+						</div>
 						<div class="row m-2">
 							<div class="col-12 col-md-4">
 								<label for="code">Mã xác nhận </label>
@@ -90,7 +98,7 @@
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
+						<button type="button" id="close" class="btn btn-secondary"
 							data-dismiss="modal">
 							<i class="far fa-times-circle"></i> Hủy
 						</button>
@@ -110,5 +118,8 @@
 	<div class="chat_box" id="flowchat"></div>
 	<script th:src="@{/js/sweetalert.min.js}"></script>
 	<script th:src="@{/js/quenmk.js}"></script>
+	<script type="text/javascript">
+		
+	</script>
 </body>
 </html>

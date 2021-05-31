@@ -72,10 +72,16 @@ public class ExamController {
 		int totalQuestionHard = 0;
 		int totalQuestionNormal = 0;
 		int totalQuestionEasy = 0;
+		Exam temp = null;
 		if (examDto.getExamCode() == null) {
 			exam.setExamCode("EX" + (examService.findMaxExamId() + 1));
+			exam.setCreateBy(account.getAccountId());
+			exam.setCreateDate(new Date());
 		} else {
+			temp = examService.get(exam.getExamId());
 			exam.setExamCode(examDto.getExamCode());
+			exam.setCreateBy(temp.getCreateBy());
+			exam.setCreateDate(temp.getCreateDate());
 			exam.setUpdateDate(new Date());
 			exam.setUpdateBy(account.getAccountId());
 			List<ExamQuestion> listExamQuestions = examQuestionService.getExamQuestionByExamCode(examDto.getExamCode());
@@ -84,8 +90,6 @@ public class ExamController {
 		exam.setSubjectId(examDto.getSubjectId());
 		exam.setDuration(examDto.getDuration());
 		exam.setStartTime(examDto.getStartTime());			
-		exam.setCreateBy(account.getAccountId());
-		exam.setCreateDate(new Date());
 		exam = examService.save(exam);
 		if(examDto.getListQuestion() != null) {
 			for (String obj : examDto.getListQuestion()) {

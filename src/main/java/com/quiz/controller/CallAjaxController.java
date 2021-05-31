@@ -1,5 +1,6 @@
 package com.quiz.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -27,6 +28,8 @@ public class CallAjaxController {
 	
 	@Autowired
 	private ForgotPasswordService forgotPasswordService;
+	
+	private long startTime;
 
 	@GetMapping("/getQuestion/{subjectId}")
 	public List<Question> listQuestionBySubjectId(@PathVariable("subjectId") Integer id) {
@@ -37,6 +40,7 @@ public class CallAjaxController {
 	@PostMapping("/changepassword/{email}")
 	public ResponseEntity<Object> changepassword(@PathVariable String email) throws MessagingException {
 		EmailUtil.sendEmail(email, 1);
+		startTime = new Date().getTime();
 		return new ResponseEntity<Object>(HttpStatus.OK);
 	}
 	
@@ -44,7 +48,7 @@ public class CallAjaxController {
 	public ResponseEntity<Object> forgotPassword(@RequestParam(name = "email") String email, 
 								@RequestParam(name = "password") String password,
 								@RequestParam(name = "code") String code) {
-		Account acount = forgotPasswordService.checkCountdown(code, password, email);
+		Account acount = forgotPasswordService.checkCountdown(code, password, email, startTime);
 		if(acount != null) {
 			return new ResponseEntity<Object>(HttpStatus.OK);
 		} else {

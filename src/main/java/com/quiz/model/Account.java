@@ -12,7 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Account")
-public class Account extends Common {
+public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer accountId;
@@ -26,6 +26,10 @@ public class Account extends Common {
 	private String password;
 	private Integer role;
 	private String avtPath;
+	private Integer createBy;
+	private Date createDate;
+	private Integer updateBy;
+	private Date updateDate;
 
 	public Integer getAccountId() {
 		return accountId;
@@ -106,24 +110,28 @@ public class Account extends Common {
 	public void setAvtPath(String avtPath) {
 		this.avtPath = avtPath;
 	}
-
-	public Account(Integer createBy, Date createDate, Integer updateBy, Date updateDate, Integer accountId,
-			String accountCode, String fullName, Integer gender, Date birthOfDate, String phoneNumber, String email, String password, Integer role, String avtPath) {
-		super(createBy, createDate, updateBy, updateDate);
-		this.accountId = accountId;
-		this.accountCode = accountCode;
-		this.fullName = fullName;
-		this.gender = gender;
-		this.birthOfDate = birthOfDate;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.avtPath = avtPath;
+	public Integer getCreateBy() {
+		return createBy;
 	}
-
-	public Account() {
-		super();
+	public void setCreateBy(Integer createBy) {
+		this.createBy = createBy;
 	}
-
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Integer getUpdateBy() {
+		return updateBy;
+	}
+	public void setUpdateBy(Integer updateBy) {
+		this.updateBy = updateBy;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 }

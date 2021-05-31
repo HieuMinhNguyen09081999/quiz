@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Question")
-public class Question extends Common {
+public class Question {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer questionId;
@@ -23,6 +23,10 @@ public class Question extends Common {
 	private String answer_correct;
 	private Integer level;
 	private Integer subjectId;
+	private Integer createBy;
+	private Date createDate;
+	private Integer updateBy;
+	private Date updateDate;
 	
 	public Integer getQuestionId() {
 		return questionId;
@@ -84,24 +88,28 @@ public class Question extends Common {
 	public void setSubjectId(Integer subjectId) {
 		this.subjectId = subjectId;
 	}
-	public Question(Integer createBy, Date createDate, Integer updateBy, Date updateDate, Integer questionId,
-			String questionCode, String question, String answer_1, String answer_2, String answer_3, String answer_4,
-			String answer_Correct, Integer level, Integer subjectId) {
-		super(createBy, createDate, updateBy, updateDate);
-		this.questionId = questionId;
-		this.questionCode = questionCode;
-		this.question = question;
-		this.answer_1 = answer_1;
-		this.answer_2 = answer_2;
-		this.answer_3 = answer_3;
-		this.answer_4 = answer_4;
-		this.answer_correct = answer_Correct;
-		this.level = level;
-		this.subjectId = subjectId;
+	public Integer getCreateBy() {
+		return createBy;
 	}
-	public Question() {
-		super();
+	public void setCreateBy(Integer createBy) {
+		this.createBy = createBy;
 	}
-	
-	
+	public Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	public Integer getUpdateBy() {
+		return updateBy;
+	}
+	public void setUpdateBy(Integer updateBy) {
+		this.updateBy = updateBy;
+	}
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 }

@@ -21,7 +21,7 @@ CREATE TABLE account(
 	full_name NVARCHAR(50) NOT NULL,
 	gender INT,
 	birth_of_date DATE,
-	phone_number VARCHAR(10) UNIQUE,
+	phone_number VARCHAR(10),
 	email VARCHAR(50) UNIQUE NOT NULL,
 	password VARCHAR(40) NOT NULL,
 	role INT NOT NULL,

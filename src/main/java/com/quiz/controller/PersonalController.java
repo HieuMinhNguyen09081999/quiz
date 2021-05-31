@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
@@ -43,6 +44,7 @@ public class PersonalController {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
+		Account temp = accountService.get(account.getAccountId());
 		Path path = Paths.get("upload/");
 		try {
 			InputStream inputStream = file.getInputStream();
@@ -56,6 +58,10 @@ public class PersonalController {
 		} else {
 			account.setAvtPath(file.getOriginalFilename().toLowerCase());
 		}
+		account.setCreateBy(temp.getCreateBy());
+		account.setCreateDate(temp.getCreateDate());
+		account.setUpdateBy(account.getAccountId());
+		account.setUpdateDate(new Date());
 		accountService.save(account);
 		session.setAttribute("account", account);
 		return "redirect:/personal";

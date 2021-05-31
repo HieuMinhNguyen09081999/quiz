@@ -55,7 +55,11 @@ public class AccountController {
 	@RequestMapping(value = "account/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute("account") Account account, HttpSession session) throws ParseException {
 		Account current = (Account) session.getAttribute("account");
+		Account temp = null;
 		if (account.getAccountCode() != null) {
+			temp = accountService.get(account.getAccountId());
+			account.setCreateBy(temp.getCreateBy());
+			account.setCreateDate(temp.getCreateDate());
 			account.setAvtPath("avatar-default.jpg");
 			account.setUpdateDate(new Date());
 			account.setUpdateBy(current.getAccountId());
